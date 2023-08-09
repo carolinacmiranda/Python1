@@ -22,12 +22,20 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
+    - name: Gere o ChromeDriver
+      run: |
+        wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/115.0.5790.170/chromedriver_linux64.zip
+        unzip chromedriver.zip
+        mv chromedriver /tmp/
+      working-directory: ${{github.workspace}}
+
     - name: Configurar ChromeDriver
-      uses: actions/download-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: chromedriver
-        path: /usr/local/bin/
+        path: /tmp/chromedriver
 
     - name: Executar testes
       run: |
         pytest
+
