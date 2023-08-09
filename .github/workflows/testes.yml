@@ -1,1 +1,27 @@
+name: Testes de Automação
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    - name: Configurar ambiente Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Instalar dependências
+      run: |
+        pip install -r requirements.txt
+
+    - name: Executar testes
+      run: pytest
 
