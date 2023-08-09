@@ -1,7 +1,7 @@
 import pytest
 
-from pages.home_page import HomePage
-from pages.login_page import LoginPage
+from pythonProject.pages.home_page import HomePage
+from pythonProject.pages.login_page import LoginPage
 
 
 @pytest.mark.usefixtures("setup_teardown")

@@ -1,9 +1,7 @@
-import time
-
-from pages.base_page import BasePage
+from pythonProject.pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 
-import conftest
+from pythonProject import conftest
 
 
 class HomePage(BasePage):
