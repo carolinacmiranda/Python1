@@ -46,7 +46,6 @@ class HomePage(BasePage):
         self.clicar(self.botao_avancar)
         self.clicar(self.botao_salvar)
         self.clicar_modal_confirmacao()
-        self.realizar_hover(self.modal_salvar)
 
     def verificar_status_do_robo(self):
         self.verificar_se_elemento_existe(self.verificar_status)
