@@ -1,9 +1,7 @@
 name: Testes Automatizados
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # Aciona a pipeline manualmente
 
 jobs:
   testes:
