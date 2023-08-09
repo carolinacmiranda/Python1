@@ -14,7 +14,7 @@ jobs:
     - name: Configurar ambiente Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.11
 
     - name: Instalar dependências
       run: |
@@ -24,11 +24,11 @@ jobs:
 
     - name: Iniciar contêiner do Selenium Hub
       run: |
-        docker run --platform linux/amd64 -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub:latest
+        docker run -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub:latest
 
     - name: Iniciar contêiner do nó do Chrome
       run: |
-        docker run --platform linux/amd64 -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub \
+        docker run -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub \
           --shm-size="2g" \
           -e SE_EVENT_BUS_PUBLISH_PORT=4442 \
           -e SE_EVENT_BUS_SUBSCRIBE_PORT=4443 \
