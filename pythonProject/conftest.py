@@ -9,7 +9,12 @@ driver: webdriver.Remote
 def setup_teardown():
     # setup
     global driver
-    driver = webdriver.Safari()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = webdriver.Chrome(options=options)
+
     driver.implicitly_wait(10)
     driver.maximize_window()
     driver.get("https://app.smarttbot.com")
