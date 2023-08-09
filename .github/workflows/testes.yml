@@ -22,19 +22,11 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
-    - name: Gere o ChromeDriver
-      run: |
-        wget -O chromedriver-linux64.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/linux64/chromedriver-linux64.zip
-        unzip chromedriver-linux64.zip
-        mv chromedriver-linux64/chromedriver /tmp/
-      working-directory: ${{github.workspace}}
-
-    - name: Configurar ChromeDriver
-      uses: actions/upload-artifact@v2
-      with:
-        name: chromedriver
-        path: /tmp/chromedriver-linux64/chromedriver
-
     - name: Executar testes
       run: |
+        docker run --rm -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:latest
         pytest
+
+    - name: Parar contêiner do Selenium
+      run: |
+        docker stop $(docker ps -a -q --filter ancestor=selenium/standalone-chrome)
