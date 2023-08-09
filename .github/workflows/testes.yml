@@ -6,8 +6,6 @@ on:
 jobs:
   testes:
     runs-on: ubuntu-latest
-    env: # Defina as variáveis de ambiente aqui
-      CHROMEDRIVER_PATH: /Users/carolinacosta/Documents/chromedriver/chromedriver
 
     steps:
     - name: Checkout do código
@@ -24,7 +22,12 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
+    - name: Configurar ChromeDriver
+      uses: actions/download-artifact@v2
+      with:
+        name: chromedriver
+        path: /usr/local/bin/
+
     - name: Executar testes
       run: |
-        export PATH=$PATH:$CHROMEDRIVER_PATH
         pytest
