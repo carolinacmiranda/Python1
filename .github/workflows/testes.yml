@@ -24,6 +24,7 @@ jobs:
 
     - name: Iniciar contêiner do Selenium Hub
       run: |
+        docker network create grid
         docker run -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub:latest
 
     - name: Iniciar contêiner do nó do Chrome
