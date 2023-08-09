@@ -1,7 +1,7 @@
-from pythonProject import conftest
+import conftest
 
 from selenium.webdriver.common.by import By
-from pythonProject.pages.base_page import BasePage
+from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):

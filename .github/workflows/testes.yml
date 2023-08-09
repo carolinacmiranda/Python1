@@ -35,11 +35,6 @@ jobs:
         name: chromedriver
         path: /tmp/chromedriver-linux64/chromedriver
 
-    - name: Imprimir diretório atual
-      run: |
-        pwd
-      working-directory: ${{github.workspace}}
-
     - name: Executar testes
       run: |
         pytest
