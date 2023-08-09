@@ -9,7 +9,7 @@ driver: webdriver.Remote
 def setup_teardown():
     # setup
     global driver
-    driver = webdriver.Chrome()
+    driver = webdriver.Safari()
     driver.implicitly_wait(10)
     driver.maximize_window()
     driver.get("https://app.smarttbot.com")
