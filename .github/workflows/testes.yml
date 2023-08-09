@@ -24,7 +24,7 @@ jobs:
 
     - name: Gere o ChromeDriver
       run: |
-        wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/115.0.5790.170/chromedriver_linux64.zip
+        wget -O chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/linux64/chromedriver-linux64.zip
         unzip chromedriver.zip
         mv chromedriver /tmp/
       working-directory: ${{github.workspace}}
