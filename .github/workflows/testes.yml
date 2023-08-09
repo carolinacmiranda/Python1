@@ -14,7 +14,7 @@ jobs:
     - name: Configurar ambiente Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.11
+        python-version: 3.8
 
     - name: Instalar dependências
       run: |
@@ -22,11 +22,27 @@ jobs:
         pip install -r requirements.txt
         pip install pytest
 
+    - name: Iniciar contêiner do Selenium Hub
+      run: |
+        docker run --platform linux/amd64 -d -p 4442-4444:4442-4444 --net grid --name selenium-hub selenium/hub:latest
+
+    - name: Iniciar contêiner do nó do Chrome
+      run: |
+        docker run --platform linux/amd64 -d --net grid -e SE_EVENT_BUS_HOST=selenium-hub \
+          --shm-size="2g" \
+          -e SE_EVENT_BUS_PUBLISH_PORT=4442 \
+          -e SE_EVENT_BUS_SUBSCRIBE_PORT=4443 \
+          selenium/node-chrome:latest
+
     - name: Executar testes
       run: |
-        docker run --rm -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome:latest
         pytest
 
-    - name: Parar contêiner do Selenium
+    - name: Parar contêineres do Selenium
       run: |
-        docker stop $(docker ps -a -q --filter ancestor=selenium/standalone-chrome)
+        docker stop selenium-hub
+        docker stop $(docker ps -a -q --filter ancestor=selenium/node-chrome)
+
+    - name: Parar contêineres remanescentes
+      run: |
+        docker rm $(docker ps -a -q)

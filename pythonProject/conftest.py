@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 
 # Indicando a URL do serviço remoto do Selenium
-REMOTE_URL = "http://localhost:4444/wd/hub"
+REMOTE_URL = "http://localhost:4444"
 
 
 @pytest.fixture
