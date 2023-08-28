@@ -18,4 +18,3 @@ class TestCT02:
         home_page.verificar_status_do_robo_modo_facil()
         home_page.parar_robo_modo_facil()
         home_page.verificar_status_parado_modo_facil()
-        time.sleep(3)

@@ -20,9 +20,11 @@ class HomePage(BasePage):
         self.robo_sardinha = (By.XPATH, "//div[@class='truncate'][contains(.,'SardinhaAutor: SmarttBot')]")
         self.botao_avancar = (By.XPATH, "//sb-button[@type='link'][contains(.,'Avançar')]")
         self.botao_salvar = (By.XPATH, "//button[contains(@aria-label,'Salvar')]")
-        self.verificar_status_modo_facil = (By.XPATH, "//button[contains(@class,'jss2262 jss2236 jss2238 jss2241 jss2745')]")
+        self.verificar_status_modo_facil = (By.XPATH, "//button[starts-with(@id, 'simulado_robo_parar')]")
         self.verificar_status_modo_completo = (By.XPATH, "//button[contains(@aria-label,'Parar')]")
         self.botao_iniciar_robo_modo_facil = (By.XPATH, "//button[contains(@class,'jss171 jss732 jss734 jss737 jss1455')]")
+        self.modal_confirmacao_parar_robo = (By.XPATH, "//button[@name='confirm'][contains(.,'Sim, parar mesmo assim')]")
+        self.modal_robo_parado_com_sucesso = (By.XPATH, "//sb-result-modal[contains(@title,'Robô parado com sucesso!')]")
 
     def verificar_login_com_sucesso(self):
         self.verificar_se_elemento_existe(self.pagina_logada)
@@ -56,6 +58,9 @@ class HomePage(BasePage):
 
     def parar_robo_modo_facil(self):
         self.clicar(self.verificar_status_modo_facil)
+        time.sleep(1)
+        self.clicar(self.modal_confirmacao_parar_robo)
 
     def verificar_status_parado_modo_facil(self):
-        self.verificar_se_elemento_existe(self.botao_iniciar_robo_modo_facil)
+        time.sleep(1)
+        self.verificar_se_elemento_existe(self.modal_robo_parado_com_sucesso)
