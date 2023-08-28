@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pages.home_page import HomePage
@@ -13,4 +15,4 @@ class TestCT03:
 
         login_page.fazer_login("automated01", "Testing202")
         home_page.criar_robo_modo_completo("Sardinha")
-
+        home_page.verificar_status_do_robo_modo_completo()

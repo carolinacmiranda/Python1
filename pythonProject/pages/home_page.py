@@ -1,3 +1,5 @@
+import time
+
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 
@@ -18,32 +20,42 @@ class HomePage(BasePage):
         self.robo_sardinha = (By.XPATH, "//div[@class='truncate'][contains(.,'SardinhaAutor: SmarttBot')]")
         self.botao_avancar = (By.XPATH, "//sb-button[@type='link'][contains(.,'Avançar')]")
         self.botao_salvar = (By.XPATH, "//button[contains(@aria-label,'Salvar')]")
-        self.modal_salvar = (By.XPATH, "//button[@class='jss171 jss756 jss758 jss759 jss761 jss762'][contains(.,'Salvar')]")
-        self.botao_iniciar = (By.XPATH, "//button[contains(@aria-label,'Iniciar')]")
-        self.verificar_status = (By.XPATH, "(//*[contains(text(), 'Executando')])[2]")
+        self.verificar_status_modo_facil = (By.XPATH, "//button[contains(@class,'jss2262 jss2236 jss2238 jss2241 jss2745')]")
+        self.verificar_status_modo_completo = (By.XPATH, "//button[contains(@aria-label,'Parar')]")
+        self.botao_iniciar_robo_modo_facil = (By.XPATH, "//button[contains(@class,'jss171 jss732 jss734 jss737 jss1455')]")
 
     def verificar_login_com_sucesso(self):
         self.verificar_se_elemento_existe(self.pagina_logada)
 
-    def criar_robo_modo_facil(self, text):
+    def criar_robo_modo_facil(self):
         self.clicar(self.botao_criar_robo)
         self.clicar(self.criacao_facil)
         self.clicar(self.robo_dourado)
         self.clicar(self.modo_simulado)
-        self.preencher_nome_robo_shadow(text)
         self.clicar(self.botao_play)
+        time.sleep(1)
         self.clicar_modal_confirmacao()
-        self.realizar_hover(self.botao_segundo_play)
+        self.clicar(self.botao_segundo_play)
 
-    def criar_robo_modo_completo(self, text):
+    def criar_robo_modo_completo(self):
         self.clicar(self.botao_criar_robo)
         self.clicar(self.criacao_completa)
         self.clicar(self.robo_sardinha)
         self.clicar(self.modo_simulado)
-        self.preencher_nome_robo_shadow(text)
         self.clicar(self.botao_avancar)
         self.clicar(self.botao_salvar)
+        time.sleep(1)
         self.clicar_modal_confirmacao()
+        self.clicar(self.botao_iniciar)
 
-    def verificar_status_do_robo(self):
-        self.verificar_se_elemento_existe(self.verificar_status)
+    def verificar_status_do_robo_modo_facil(self):
+        self.verificar_se_elemento_existe(self.verificar_status_modo_facil)
+
+    def verificar_status_do_robo_modo_completo(self):
+        self.verificar_se_elemento_existe(self.verificar_status_modo_completo)
+
+    def parar_robo_modo_facil(self):
+        self.clicar(self.verificar_status_modo_facil)
+
+    def verificar_status_parado_modo_facil(self):
+        self.verificar_se_elemento_existe(self.botao_iniciar_robo_modo_facil)

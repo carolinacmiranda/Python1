@@ -1,7 +1,10 @@
+import conftest
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-import conftest
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 
 
 class BasePage:
@@ -15,15 +18,19 @@ class BasePage:
         return self.driver.find_elements(*locator)
 
     def digitar(self, locator, text):
+        self.esperar_elemento(locator)
         self.encontrar_elemento(locator).send_keys(text)
 
     def clicar(self, locator):
+        self.esperar_elemento(locator)
         self.encontrar_elemento(locator).click()
 
     def verificar_se_elemento_existe(self, locator):
+        self.esperar_elemento(locator)
         assert self.encontrar_elemento(locator).is_displayed()
 
     def verificar_mensagem_de_sucesso(self, locator):
+        self.esperar_elemento(locator)
         return self.encontrar_elemento(locator).text
 
     def preencher_nome_robo_shadow(self, text):
@@ -38,3 +45,10 @@ class BasePage:
         element_to_hover = self.encontrar_elemento(locator)
         actions = ActionChains(self.driver)
         actions.move_to_element(element_to_hover).perform()
+
+    def clique_duplo(self, locator):
+        element = self.esperar_elemento(locator)
+        ActionChains(self.driver).double_click(element).perform()
+
+    def esperar_elemento(self, locator, timeout=20):
+        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))

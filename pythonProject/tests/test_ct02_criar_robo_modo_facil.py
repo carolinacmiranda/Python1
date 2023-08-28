@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 from pages.home_page import HomePage
@@ -12,4 +14,8 @@ class TestCT02:
         home_page = HomePage()
 
         login_page.fazer_login("automated01", "Testing202")
-        home_page.criar_robo_modo_facil("Dourado")
+        home_page.criar_robo_modo_facil()
+        home_page.verificar_status_do_robo_modo_facil()
+        home_page.parar_robo_modo_facil()
+        home_page.verificar_status_parado_modo_facil()
+        time.sleep(3)
