@@ -20,9 +20,9 @@ class HomePage(BasePage):
         self.robo_sardinha = (By.XPATH, "//div[@class='truncate'][contains(.,'SardinhaAutor: SmarttBot')]")
         self.botao_avancar = (By.XPATH, "//sb-button[@type='link'][contains(.,'Avançar')]")
         self.botao_salvar = (By.XPATH, "//button[contains(@aria-label,'Salvar')]")
+        self.botao_iniciar = (By.XPATH, "//button[starts-with(@id, 'simulado_robo_iniciar')]")
         self.verificar_status_modo_facil = (By.XPATH, "//button[starts-with(@id, 'simulado_robo_parar')]")
         self.verificar_status_modo_completo = (By.XPATH, "//button[contains(@aria-label,'Parar')]")
-        self.botao_iniciar_robo_modo_facil = (By.XPATH, "//button[contains(@class,'jss171 jss732 jss734 jss737 jss1455')]")
         self.modal_confirmacao_parar_robo = (By.XPATH, "//button[@name='confirm'][contains(.,'Sim, parar mesmo assim')]")
         self.modal_robo_parado_com_sucesso = (By.XPATH, "//sb-result-modal[contains(@title,'Robô parado com sucesso!')]")
 
@@ -39,11 +39,12 @@ class HomePage(BasePage):
         self.clicar_modal_confirmacao()
         self.clicar(self.botao_segundo_play)
 
-    def criar_robo_modo_completo(self):
+    def criar_robo_modo_completo(self, text):
         self.clicar(self.botao_criar_robo)
         self.clicar(self.criacao_completa)
         self.clicar(self.robo_sardinha)
         self.clicar(self.modo_simulado)
+        self.preencher_nome_robo_shadow(text)
         self.clicar(self.botao_avancar)
         self.clicar(self.botao_salvar)
         time.sleep(1)
@@ -53,14 +54,23 @@ class HomePage(BasePage):
     def verificar_status_do_robo_modo_facil(self):
         self.verificar_se_elemento_existe(self.verificar_status_modo_facil)
 
-    def verificar_status_do_robo_modo_completo(self):
-        self.verificar_se_elemento_existe(self.verificar_status_modo_completo)
-
     def parar_robo_modo_facil(self):
         self.clicar(self.verificar_status_modo_facil)
         time.sleep(1)
         self.clicar(self.modal_confirmacao_parar_robo)
 
     def verificar_status_parado_modo_facil(self):
+        time.sleep(1)
+        self.verificar_se_elemento_existe(self.modal_robo_parado_com_sucesso)
+
+    def verificar_status_do_robo_modo_completo(self):
+        self.verificar_se_elemento_existe(self.verificar_status_modo_completo)
+
+    def parar_robo_modo_completo(self):
+        self.clicar(self.verificar_status_modo_completo)
+        time.sleep(1)
+        self.clicar(self.modal_confirmacao_parar_robo)
+
+    def verificar_status_parado_modo_completo(self):
         time.sleep(1)
         self.verificar_se_elemento_existe(self.modal_robo_parado_com_sucesso)

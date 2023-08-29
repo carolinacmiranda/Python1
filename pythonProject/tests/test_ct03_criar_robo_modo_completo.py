@@ -16,3 +16,5 @@ class TestCT03:
         login_page.fazer_login("automated01", "Testing202")
         home_page.criar_robo_modo_completo("Sardinha")
         home_page.verificar_status_do_robo_modo_completo()
+        home_page.parar_robo_modo_completo()
+        home_page.verificar_status_parado_modo_completo()
