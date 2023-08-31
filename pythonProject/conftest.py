@@ -3,13 +3,14 @@ from selenium import webdriver
 
 # Indicando a URL do serviço remoto do Selenium
 REMOTE_URL = "http://localhost:4444"
+driver = None
 # driver: webdriver.Remote
 
 
 @pytest.fixture
 def setup_teardown():
     # setup
-   # global driver
+    global driver
     options = webdriver.ChromeOptions()
 
     # driver = webdriver.Chrome()
